@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.Date;
 
 @Component
@@ -31,16 +30,17 @@ public class TokenService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Returns the HMAC SHA signing key using the configured jwt.secret.
+     */
     public SecretKey getSigningKey() {
-        try {
-            byte[] keyBytes = MessageDigest.getInstance("SHA-256")
-                    .digest(jwtSecret.getBytes(StandardCharsets.UTF_8));
-            return Keys.hmacShaKeyFor(keyBytes);
-        } catch (Exception e) {
-            return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-        }
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Generates a JWT token for the given user email (subject),
+     * valid for 7 days from the issued-at timestamp.
+     */
     public String generateToken(String email) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + 7L * 24 * 60 * 60 * 1000);

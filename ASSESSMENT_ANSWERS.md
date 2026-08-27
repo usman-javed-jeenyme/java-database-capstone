@@ -56,10 +56,30 @@ CALL GetDailyAppointmentReportByDoctor(CURDATE());
 CALL GetDoctorWithMostPatientsByMonth(MONTH(CURDATE()), YEAR(CURDATE()));
 ```
 
+**Output:**
+
+```
++-----------+--------------+--------------+---------------+
+| doctor_id | doctor_name  | specialty    | patient_count |
++-----------+--------------+--------------+---------------+
+|         1 | Alice Carter | cardiologist |             5 |
++-----------+--------------+--------------+---------------+
+```
+
 ## Q23 — GetDoctorWithMostPatientsByYear
 
 ```sql
 CALL GetDoctorWithMostPatientsByYear(YEAR(CURDATE()));
+```
+
+**Output:**
+
+```
++-----------+--------------+--------------+---------------+
+| doctor_id | doctor_name  | specialty    | patient_count |
++-----------+--------------+--------------+---------------+
+|         1 | Alice Carter | cardiologist |             5 |
++-----------+--------------+--------------+---------------+
 ```
 
 ## Q24 — GET all doctors
